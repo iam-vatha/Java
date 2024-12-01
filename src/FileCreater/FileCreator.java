@@ -1,23 +1,39 @@
+package FileCreater;
 import java.io.IOException;
 import java.io.File;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 
-public class FileCreater {
-    private String path = FindFilePath();
+public class FileCreator {
+    final private String rootFolderPath = FindRootFolderPath();
 
-    public FileCreater(){};
+    public FileCreator(){};
 
-    public String GetFilePath() {
-
-        return this.path;
+    public String GetRootFilePath() {
+        return this.rootFolderPath;
     }
 
-    private String FindFilePath() {
+    private String FindRootFolderPath() {
         try {
             return new java.io.File(".").getCanonicalPath();
         } catch (IOException e) {
             System.out.println("Couldn't resolve the current path, closing program");
             System.exit(0);
-            return null; //only present for the compiler
+            return null;
+        }
+    }
+
+    public Path GetAdventOfCodePath(int year, int day, int part) {
+        return FindAdventOfCodePath(year, day, part);
+    }
+
+    private Path FindAdventOfCodePath(int year, int day, int part) {
+        try {
+            return Paths.get("").toAbsolutePath().resolve("src/AdventOfCode/y" + year + "/Day" + day + "/Part" + part);
+        } catch (Exception e) {
+            System.out.println("Couldn't resolve the current path, closing program");
+            System.exit(0);
+            return null;
         }
     }
 
@@ -35,7 +51,7 @@ public class FileCreater {
         }
     }
 
-    public void createEmptyFile(String filePath) {
+    public void CreateEmptyFile(String filePath) {
         try {
             File file = new File(filePath);
             boolean created = file.createNewFile();
