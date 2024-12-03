@@ -7,7 +7,7 @@ import java.nio.file.Path;
 public class FileCreator {
     final private String rootFolderPath = FindRootFolderPath();
 
-    public FileCreator(){};
+    public FileCreator(){}
 
     public String GetRootFilePath() {
         return this.rootFolderPath;
@@ -30,6 +30,20 @@ public class FileCreator {
     private Path FindAdventOfCodePath(int year, int day, int part) {
         try {
             return Paths.get("").toAbsolutePath().resolve("src/AdventOfCode/y" + year + "/Day" + day + "/Part" + part);
+        } catch (Exception e) {
+            System.out.println("Couldn't resolve the current path, closing program");
+            System.exit(0);
+            return null;
+        }
+    }
+
+    public Path GetAdventOfCodeInputPath(int year, int day, int part) {
+        return FindAdventOfCodeInputPath(year, day, part);
+    }
+
+    private Path FindAdventOfCodeInputPath(int year, int day, int part) {
+        try {
+            return Paths.get("").toAbsolutePath().resolve("src/AdventOfCode/y" + year + "/Day" + day + "/Part" + part + "/input.txt");
         } catch (Exception e) {
             System.out.println("Couldn't resolve the current path, closing program");
             System.exit(0);
